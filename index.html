@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="km" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ពិធីភ្ជាប់ពាក្យ - Kroeun Sokpanha & Phai Srey Pov</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for Latin text and Koulen, Suwannaphum, Moulpheap for gorgeous Khmer calligraphy -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Koulen&family=Moulpheap&family=Suwannaphum:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FontAwesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Fasthan", "Inter", "AKbalthom KhmerLight"],
+              moul: ["Kantumruy Pro", "serif"],
+              koulen: ["Koulen", "cursive"],
+            },
+            colors: {
+              pastel: {
+                50: "#fdf8f6",
+                100: "#f9eee9",
+                200: "#f3dccf",
+                300: "#e8beaa",
+                400: "#d9977c",
+                500: "#c57454",
+                600: "#a85a3c",
+              },
+              blush: {
+                50: "#fff5f7",
+                100: "#ffe3e8",
+                200: "#fecdd6",
+                300: "#fba5b5",
+                500: "#f43f5e",
+                600: "#e11d48",
+              },
+              cream: {
+                50: "#fefcf8",
+                100: "#fdf9f0",
+                200: "#f9f1e1",
+                300: "#f3e4c4",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Suwannaphum", "Inter", sans-serif;
+        background-color: #fdf8f6;
+        color: #4a3b32;
+        overflow-x: hidden;
+      }
+
+      .font-moul {
+        font-family: "Kantumruy Pro", serif;
+      }
+
+      .font-koulen {
+        font-family: "Koulen", cursive;
+      }
+
+      /* Soft romantic glassmorphism card styling */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(243, 220, 196, 0.6);
+        box-shadow: 0 10px 30px rgba(197, 116, 84, 0.08);
+      }
+
+      .glass-header {
+        background: rgba(253, 248, 246, 0.85);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(243, 220, 196, 0.4);
+      }
+
+      /* Floating petal animations */
+      @keyframes floatPetal {
+        0% {
+          transform: translateY(-10vh) translateX(0vw) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.8;
+        }
+        90% {
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(105vh) translateX(15vw) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .petal {
+        position: fixed;
+        top: -5vh;
+        background: radial-gradient(circle, #fba5b5 0%, #f43f5e 100%);
+        border-radius: 150% 0 150% 0;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.6;
+        animation: floatPetal linear infinite;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #fdf8f6;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #e8beaa;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb-name:hover {
+        background: #d9977c;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-pastel-50 text-stone-700 min-h-screen relative selection:bg-rose-200 selection:rose-900"
+  >
+    <!-- Floating Background Petals Generator Container -->
+    <div
+      id="petal-container"
+      class="absolute inset-0 overflow-hidden pointer-events-none z-0"
+    ></div>
+
+    <!-- Background warm glowing orbs -->
+    <div
+      class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0"
+    >
+      <div
+        class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-pastel-200/40 blur-[100px]"
+      ></div>
+      <div
+        class="absolute top-[35%] right-[-10%] w-[600px] h-[600px] rounded-full bg-blush-100/50 blur-[120px]"
+      ></div>
+      <div
+        class="absolute bottom-[-5%] left-[20%] w-[500px] h-[500px] rounded-full bg-cream-300/40 blur-[100px]"
+      ></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header
+      class="fixed top-0 left-0 w-full z-50 glass-header transition-all duration-300"
+      id="navbar"
+    >
+      <div
+        class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 rounded-full bg-gradient-to-tr from-pastel-400 to-blush-300 flex items-center justify-center shadow-md shadow-pastel-300/40 text-white"
+          >
+            <i class="fa-solid fa-ring text-sm"></i>
+          </div>
+          <span
+            class="font-moul text-sm sm:text-base text-stone-800 tracking-wide"
+            >សិរីសួស្តី ពិធីភ្ជាប់ពាក្យ</span
+          >
+        </div>
+
+        <nav
+          class="hidden md:flex items-center space-x-8 text-sm font-medium text-stone-600"
+        >
+          <a href="#couple" class="hover:text-blush-600 transition-colors"
+            >គូស្វាមីភរិយា</a
+          >
+          <a href="#story" class="hover:text-blush-600 transition-colors"
+            >ដំណើររឿង</a
+          >
+          <a href="#details" class="hover:text-blush-600 transition-colors"
+            >កម្មវិធី និងទីតាំង</a
+          >
+          <a href="#wishes" class="hover:text-blush-600 transition-colors"
+            >ពាក្យជូនពរ</a
+          >
+        </nav>
+
+        <div>
+          <button
+            onclick="openRsvpModal()"
+            class="bg-gradient-to-r from-pastel-500 to-blush-500 hover:from-pastel-600 hover:to-blush-600 text-white font-medium px-5 py-2.5 rounded-full shadow-md shadow-pastel-400/30 transition-all transform hover:-translate-y-0.5 text-xs sm:text-sm"
+          >
+            <i class="fa-solid fa-heart mr-1.5"></i> អញ្ជើញចូលរួម
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section
+      class="relative min-h-screen flex items-center justify-center pt-28 pb-20 px-6 z-10"
+    >
+      <div class="max-w-4xl mx-auto text-center">
+        <!-- Traditional Khmer floral badge ornament -->
+        <div
+          class="inline-flex items-center space-x-2 px-5 py-2 rounded-full glass-card border border-pastel-300/60 text-stone-700 text-xs sm:text-sm font-medium mb-6 shadow-sm"
+        >
+          <i class="fa-solid fa-spa text-pastel-500"></i>
+          <span>ចំណងដៃស្នេហ៍ និងសិរីសួស្តីពិធីភ្ជាប់ពាក្យ</span>
+          <i class="fa-solid fa-spa text-pastel-500"></i>
+        </div>
+
+        <!-- Main Titles -->
+        <h1
+          class="font-moul text-2xl sm:text-4xl md:text-5xl text-stone-800 mb-4 leading-relaxed tracking-wide"
+        >
+          សិរីសួស្តី ពិធីភ្ជាប់ពាក្យ
+        </h1>
+
+        <p
+          class="text-stone-600 text-base sm:text-lg mb-8 font-light max-w-xl mx-auto"
+        >
+          ដោយក្តីសោមនស្សរីករាយជាទីបំផុត យើងខ្ញុំសូមគោរពអញ្ជើញ ឯកឧត្តម លោកជំទាវ
+          លោកឧកញ៉ា លោកាយ លោកស្រី អ្នកនាងកញ្ញា ញាត្តិមិត្តជិតឆ្ងាយទាំងអស់
+          មេត្តាអញ្ជើញចូលរួមជាកិត្តិយសក្នុងពិធីភ្ជាប់ពាក្យរបស់យើងខ្ញុំ។
+        </p>
+
+        <!-- Couple Names Card -->
+        <div
+          class="glass-card p-6 sm:p-10 rounded-3xl max-w-2xl mx-auto mb-10 border border-pastel-300 shadow-xl relative overflow-hidden"
+        >
+          <div
+            class="absolute -right-10 -bottom-10 opacity-10 text-9xl text-pastel-500 pointer-events-none"
+          >
+            <i class="fa-solid fa-dove"></i>
+          </div>
+
+          <div
+            class="flex flex-col md:flex-row items-center justify-around gap-6"
+          >
+            <div class="text-center">
+              <div
+                class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-pastel-100 border-2 border-pastel-300 flex items-center justify-center text-pastel-600 text-2xl mb-3 shadow-inner"
+              >
+                <i class="fa-solid fa-user-tie"></i>
+              </div>
+              <h2 class="font-moul text-lg sm:text-xl text-stone-800">
+                គ្រឿន សុខបញ្ញា
+              </h2>
+              <span
+                class="text-xs uppercase tracking-widest text-stone-500 mt-1 block"
+                >កូនប្រុស (Groom)</span
+              >
+            </div>
+
+            <div class="flex items-center justify-center">
+              <div
+                class="w-12 h-12 rounded-full bg-blush-100 border border-blush-300 text-blush-500 flex items-center justify-center text-xl shadow-md animate-pulse"
+              >
+                <i class="fa-solid fa-heart"></i>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <div
+                class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-blush-50 border-2 border-blush-200 flex items-center justify-center text-blush-500 text-2xl mb-3 shadow-inner"
+              >
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <h2 class="font-moul text-lg sm:text-xl text-stone-800">
+                ផៃ ស្រីពៅ
+              </h2>
+              <span
+                class="text-xs uppercase tracking-widest text-stone-500 mt-1 block"
+                >កូនស្រី (Bride)</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Countdown Timer Container -->
+        <div class="mb-10">
+          <p
+            class="text-xs uppercase tracking-widest text-stone-500 mb-4 font-semibold"
+          >
+            ពេលវេលានៅសល់មុនថ្ងៃពិធី (Countdown to Our Special Day)
+          </p>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-lg mx-auto">
+            <div
+              class="glass-card p-4 rounded-2xl text-center border-pastel-200"
+            >
+              <span
+                id="days"
+                class="block text-2xl sm:text-3xl font-bold font-koulen text-stone-800"
+                >00</span
+              >
+              <span class="text-xs text-stone-500 font-medium"
+                >ថ្ងៃ (Days)</span
+              >
+            </div>
+            <div
+              class="glass-card p-4 rounded-2xl text-center border-pastel-200"
+            >
+              <span
+                id="hours"
+                class="block text-2xl sm:text-3xl font-bold font-koulen text-stone-800"
+                >00</span
+              >
+              <span class="text-xs text-stone-500 font-medium"
+                >ម៉ោង (Hours)</span
+              >
+            </div>
+            <div
+              class="glass-card p-4 rounded-2xl text-center border-pastel-200"
+            >
+              <span
+                id="minutes"
+                class="block text-2xl sm:text-3xl font-bold font-koulen text-stone-800"
+                >00</span
+              >
+              <span class="text-xs text-stone-500 font-medium"
+                >នាទី (Minutes)</span
+              >
+            </div>
+            <div
+              class="glass-card p-4 rounded-2xl text-center border-pastel-200"
+            >
+              <span
+                id="seconds"
+                class="block text-2xl sm:text-3xl font-bold font-koulen text-stone-800"
+                >00</span
+              >
+              <span class="text-xs text-stone-500 font-medium"
+                >វិនាទី (Seconds)</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Call to Action Buttons -->
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <button
+            onclick="openRsvpModal()"
+            class="w-full sm:w-auto bg-gradient-to-r from-pastel-500 to-blush-500 hover:from-pastel-600 hover:to-blush-600 text-white font-medium px-8 py-3.5 rounded-2xl shadow-lg shadow-pastel-400/30 transition-all transform hover:-translate-y-0.5 text-sm"
+          >
+            <i class="fa-solid fa-envelope-open-text mr-2"></i> បញ្ជាក់ការចូលរួម
+            (RSVP)
+          </button>
+          <a
+            href="#details"
+            class="w-full sm:w-auto glass-card hover:bg-white/90 text-stone-700 font-medium px-8 py-3.5 rounded-2xl transition-all border border-pastel-300 text-sm"
+          >
+            <i class="fa-solid fa-location-dot mr-2 text-pastel-600"></i>
+            មើលទីតាំងកម្មវិធី
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Couple Bio & Story Section -->
+    <section
+      id="couple"
+      class="py-20 px-6 relative z-10 bg-white/40 backdrop-blur-sm"
+    >
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-16">
+          <span
+            class="text-pastel-600 text-xs font-semibold uppercase tracking-widest block mb-2"
+            >Our Love Journey</span
+          >
+          <h2 class="font-moul text-2xl sm:text-3xl text-stone-800">
+            ដំណើររឿង និងចំណងដៃមនោសញ្ចេតនា
+          </h2>
+          <div class="w-16 h-1 bg-pastel-400 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div
+            class="glass-card p-8 rounded-3xl border border-pastel-200 space-y-4"
+          >
+            <div
+              class="w-12 h-12 rounded-2xl bg-pastel-100 flex items-center justify-center text-pastel-600 text-xl shadow-sm"
+            >
+              <i class="fa-solid fa-quote-left"></i>
+            </div>
+            <h3 class="font-moul text-lg text-stone-800">
+              ក្តីស្រឡាញ់ដ៏ស្មោះស្ម័គ្រ
+            </h3>
+            <p
+              class="text-stone-600 text-sm sm:text-base leading-relaxed font-light"
+            >
+              "ក្ដីសុខពិតប្រាកដក្នុងជីវិត គឺការបានជួបមនុស្សម្នាក់ដែលយល់ចិត្ត
+              ស្រឡាញ់ និងព្រមដើរជាមួយគ្នាក្នុងគ្រប់កាលៈទេសៈ។
+              ថ្ងៃនេះគឺជាការចាប់ផ្តើមដ៏មានន័យបំផុតរបស់យើងទាំងពីរ
+              ក្រោមពរជ័យពីសំណាក់គ្រួសារទាំងសងខាង។"
+            </p>
+            <p class="font-moul text-sm text-pastel-600 pt-2">
+              — គ្រឿន សុខបញ្ញា & ផៃ ស្រីពៅ
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div
+              class="glass-card p-6 rounded-3xl text-center border-pastel-200 flex flex-col justify-center items-center"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-blush-100 text-blush-500 flex items-center justify-center text-lg mb-3"
+              >
+                <i class="fa-solid fa-calendar-check"></i>
+              </div>
+              <span
+                class="text-xs uppercase tracking-widest text-stone-500 mb-1"
+                >ថ្ងៃប្រារព្ធពិធី</span
+              >
+              <span class="font-moul text-sm text-stone-800"
+                >ថ្ងៃអាទិត្យ ទី១៥</span
+              >
+              <span class="text-xs text-stone-600 font-medium"
+                >ខែវិច្ឆិកា ឆ្នាំ ២០២៦</span
+              >
+            </div>
+
+            <div
+              class="glass-card p-6 rounded-3xl text-center border-pastel-200 flex flex-col justify-center items-center"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-lg mb-3"
+              >
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <span
+                class="text-xs uppercase tracking-widest text-stone-500 mb-1"
+                >ពេលវេលា</span
+              >
+              <span class="font-moul text-sm text-stone-800"
+                >ម៉ោង ០៧:០០ ព្រឹក</span
+              >
+              <span class="text-xs text-stone-600 font-medium"
+                >ចាប់ផ្តើមកម្មវិធី</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Details & Location Section -->
+    <section id="details" class="py-20 px-6 relative z-10">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-16">
+          <span
+            class="text-pastel-600 text-xs font-semibold uppercase tracking-widest block mb-2"
+            >Event Schedule & Venue</span
+          >
+          <h2 class="font-moul text-2xl sm:text-3xl text-stone-800">
+            ទីតាំង និងកម្មវិធីពិធី
+          </h2>
+          <div class="w-16 h-1 bg-pastel-400 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Location Card -->
+          <div
+            class="glass-card p-8 rounded-3xl border border-pastel-300 relative overflow-hidden flex flex-col justify-between"
+          >
+            <div>
+              <div
+                class="w-14 h-14 rounded-2xl bg-pastel-100 text-pastel-600 flex items-center justify-center text-xl mb-6 shadow-sm"
+              >
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <h3 class="font-moul text-xl text-stone-800 mb-2">
+                ទីតាំងប្រារព្ធពិធី
+              </h3>
+              <p class="text-stone-700 font-medium text-base mb-1">
+                ភូមិព្រៃស្នាត ឃុំព្រៃស្នាត
+              </p>
+              <p class="text-stone-600 text-sm mb-6">
+                ខេត្តព្រៃវែង (Prey Snet, Prey Veng Province)
+              </p>
+            </div>
+
+            <div
+              class="pt-4 border-t border-pastel-200 flex items-center justify-between"
+            >
+              <span class="text-xs text-stone-500"
+                >ស្វាគមន៍វត្តមានភ្ញៀវកិត្តិយស</span
+              >
+              <a
+                href="https://maps.google.com/?q=Prey+Snet+Prey+Veng"
+                target="_blank"
+                class="bg-stone-800 hover:bg-stone-900 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition-all shadow-md"
+              >
+                <i class="fa-solid fa-map-location-dot mr-1.5"></i> បើកផែនទី
+                (Map)
+              </a>
+            </div>
+          </div>
+
+          <!-- Program Schedule Card -->
+          <div class="glass-card p-8 rounded-3xl border border-pastel-300">
+            <div
+              class="w-14 h-14 rounded-2xl bg-blush-100 text-blush-500 flex items-center justify-center text-xl mb-6 shadow-sm"
+            >
+              <i class="fa-solid fa-list-check"></i>
+            </div>
+            <h3 class="font-moul text-xl text-stone-800 mb-4">
+              កម្មវិធីបុណ្យប្រពៃណី
+            </h3>
+
+            <div class="space-y-4 text-sm">
+              <div
+                class="flex items-start justify-between pb-3 border-b border-pastel-200"
+              >
+                <div>
+                  <span class="font-moul text-stone-800 block text-xs"
+                    >ម៉ោង ០៧:០០ ព្រឹក</span
+                  >
+                  <span class="text-stone-600"
+                    >ពិធីជួបជុំសាច់ញាតិ និងរៀបចំគ្រឿងពិធី</span
+                  >
+                </div>
+                <span
+                  class="px-3 py-1 rounded-full bg-pastel-100 text-pastel-700 text-xs font-medium"
+                  >ចាប់ផ្តើម</span
+                >
+              </div>
+              <div
+                class="flex items-start justify-between pb-3 border-b border-pastel-200"
+              >
+                <div>
+                  <span class="font-moul text-stone-800 block text-xs"
+                    >ម៉ោង ០៨:០០ ព្រឹក</span
+                  >
+                  <span class="text-stone-600"
+                    >ពិធីហែរចិញ្ចៀន និងបំពាក់ចិញ្ចៀនភ្ជាប់ពាក្យ</span
+                  >
+                </div>
+                <span
+                  class="px-3 py-1 rounded-full bg-blush-100 text-blush-600 text-xs font-medium"
+                  >ពិធីផ្លូវការ</span
+                >
+              </div>
+              <div class="flex items-start justify-between">
+                <div>
+                  <span class="font-moul text-stone-800 block text-xs"
+                    >ម៉ោង ១១:០០ ថ្ងៃត្រង់</span
+                  >
+                  <span class="text-stone-600">ហូបអាហារសាមគ្គីអបអរសាទរ</span>
+                </div>
+                <span
+                  class="px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-medium"
+                  >ជប់លៀង</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wishes & Guestbook Section -->
+    <section
+      id="wishes"
+      class="py-20 px-6 relative z-10 bg-white/40 backdrop-blur-sm"
+    >
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-12">
+          <span
+            class="text-pastel-600 text-xs font-semibold uppercase tracking-widest block mb-2"
+            >Blessings & Wishes</span
+          >
+          <h2 class="font-moul text-2xl sm:text-3xl text-stone-800">
+            សៀវភៅពាក្យជូនពរ
+          </h2>
+          <p class="text-stone-600 text-sm mt-2">
+            ផ្ញើសារជូនពរដ៏ថ្លៃថ្លាដល់កូនកំលោះ និងកូនក្រមុំ
+          </p>
+          <div class="w-16 h-1 bg-pastel-400 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <!-- Wish Form -->
+        <div
+          class="glass-card p-6 sm:p-8 rounded-3xl border border-pastel-300 mb-8 shadow-md"
+        >
+          <form
+            id="wishForm"
+            onsubmit="handleWishSubmit(event)"
+            class="space-y-4"
+          >
+            <div>
+              <label class="block text-xs font-medium text-stone-700 mb-1"
+                >ឈ្មោះអ្នកផ្ញើ / ស្ថាប័ន (Your Name)</label
+              >
+              <input
+                type="text"
+                id="wishName"
+                required
+                class="w-full bg-white/80 border border-pastel-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:border-pastel-500 text-sm"
+                placeholder="បញ្ចូលឈ្មោះរបស់អ្នក..."
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-stone-700 mb-1"
+                >ពាក្យជូនពរ (Your Blessing)</label
+              >
+              <textarea
+                id="wishText"
+                required
+                rows="3"
+                class="w-full bg-white/80 border border-pastel-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:border-pastel-500 text-sm"
+                placeholder="សូមជូនពរឱ្យបងទាំងពីរមានសុភមង្គល និងស្រឡាញ់គ្នាជារៀងរហូត..."
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-gradient-to-r from-pastel-500 to-blush-500 hover:from-pastel-600 hover:to-blush-600 text-white font-medium py-3 rounded-xl shadow-md transition-all text-sm"
+            >
+              <i class="fa-solid fa-paper-plane mr-2"></i> ផ្ញើសារជូនពរ
+            </button>
+          </form>
+        </div>
+
+        <!-- Wish List Container -->
+        <div id="wishList" class="space-y-4">
+          <!-- Default Sample Wish 1 -->
+          <div class="glass-card p-5 rounded-2xl border border-pastel-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-moul text-sm text-stone-800"
+                ><i class="fa-solid fa-user-circle text-pastel-500 mr-2"></i>លោក
+                និងលោកស្រី សុខ ភា</span
+              >
+              <span class="text-xs text-stone-400">ទើបតែឥឡូវនេះ</span>
+            </div>
+            <p class="text-stone-600 text-sm font-light">
+              "សូមអបអរសាទរចំពោះពិធីភ្ជាប់ពាក្យរបស់ក្មួយទាំងពីរ!
+              សូមជូនពរឱ្យមានសុភមង្គល ជោគជ័យក្នុងជីវិតគ្រួសារ
+              និងស្រឡាញ់គ្នារហូតដល់ចាស់កោងខ្នង។"
+            </p>
+          </div>
+          <!-- Default Sample Wish 2 -->
+          <div class="glass-card p-5 rounded-2xl border border-pastel-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-moul text-sm text-stone-800"
+                ><i class="fa-solid fa-user-circle text-blush-400 mr-2"></i
+                >កញ្ញា ចាន់ ថាច</span
+              >
+              <span class="text-xs text-stone-400">១៥ នាទីមុន</span>
+            </div>
+            <p class="text-stone-600 text-sm font-light">
+              "អបអរសាទរបងបញ្ញា និងបងស្រីពៅ! សុខសប្បាយ
+              និងជោគជ័យគ្រប់ភារកិច្ចទាំងអស់គ្នា។"
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="py-12 px-6 border-t border-pastel-200 relative z-10 text-center bg-pastel-100/50"
+    >
+      <div class="max-w-4xl mx-auto space-y-4">
+        <div
+          class="w-12 h-12 mx-auto rounded-full bg-gradient-to-tr from-pastel-400 to-blush-300 flex items-center justify-center text-white shadow-md"
+        >
+          <i class="fa-solid fa-heart text-sm"></i>
+        </div>
+        <h3 class="font-moul text-lg text-stone-800">
+          គ្រឿន សុខបញ្ញា & ផៃ ស្រីពៅ
+        </h3>
+        <p class="text-stone-500 text-xs sm:text-sm">
+          សូមអរគុណចំពោះវត្តមាន និងការចូលរួមជាកិត្តិយសដ៏ថ្លៃថ្លា!
+        </p>
+        <p class="text-stone-400 text-xs pt-4">
+          © 2026 Kroeun Sokpanha & Phai Srey Pov Engagement. All rights
+          reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- RSVP Modal -->
+    <div
+      id="rsvpModal"
+      class="fixed inset-0 z-50 flex items-center justify-center px-4 bg-stone-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300"
+    >
+      <div
+        class="glass-card w-full max-w-md rounded-3xl p-8 relative border border-pastel-300 shadow-2xl transform scale-95 transition-transform duration-300 bg-white/95"
+        id="modalContent"
+      >
+        <button
+          onclick="closeRsvpModal()"
+          class="absolute top-6 right-6 w-9 h-9 rounded-full bg-pastel-100 hover:bg-pastel-200 text-stone-600 flex items-center justify-center transition-colors"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="mb-6 text-center">
+          <span
+            class="text-pastel-600 text-xs font-semibold uppercase tracking-wider block"
+            >Confirmation</span
+          >
+          <h3 class="font-moul text-xl text-stone-800 mt-1">
+            បញ្ជាក់ការចូលរួម (RSVP)
+          </h3>
+          <p class="text-stone-500 text-xs mt-1">
+            សូមបំពេញព័ត៌មានខាងក្រោមដើម្បីឱ្យយើងខ្ញុំរៀបចំកន្លែងជូន
+          </p>
+        </div>
+
+        <form
+          id="rsvpForm"
+          onsubmit="handleRsvpSubmit(event)"
+          class="space-y-4"
+        >
+          <div>
+            <label class="block text-xs font-medium text-stone-700 mb-1"
+              >ឈ្មោះពេញ (Full Name)</label
+            >
+            <input
+              type="text"
+              id="guestName"
+              required
+              class="w-full bg-pastel-50 border border-pastel-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:border-pastel-500 text-sm"
+              placeholder="ឧ. លោក និងលោកស្រី ..."
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-stone-700 mb-1"
+                >ស្ថានភាពចូលរួម</label
+              >
+              <select
+                id="guestStatus"
+                class="w-full bg-pastel-50 border border-pastel-200 rounded-xl px-3 py-3 text-stone-800 focus:outline-none focus:border-pastel-500 text-sm"
+              >
+                <option value="attending">អញ្ជើញចូលរួមផ្ទាល់</option>
+                <option value="declined">អាក់ខានដោយអយុត្តិធម៌/ติดธุระ</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-stone-700 mb-1"
+                >ចំនួនភ្ញៀវ</label
+              >
+              <select
+                id="guestCount"
+                class="w-full bg-pastel-50 border border-pastel-200 rounded-xl px-3 py-3 text-stone-800 focus:outline-none focus:border-pastel-500 text-sm"
+              >
+                <option value="1">០១ នាក់</option>
+                <option value="2">០២ នាក់</option>
+                <option value="3">០៣ នាក់ ឬច្រើនជាងនេះ</option>
+              </select>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full mt-2 bg-gradient-to-r from-pastel-500 to-blush-500 hover:from-pastel-600 hover:to-blush-600 text-white font-medium py-3.5 rounded-xl shadow-md transition-all text-sm"
+          >
+            បញ្ជូនការឆ្លើយតប
+          </button>
+        </form>
+
+        <!-- Success State -->
+        <div id="successState" class="hidden text-center py-6">
+          <div
+            class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-4 shadow-inner"
+          >
+            <i class="fa-solid fa-check"></i>
+          </div>
+          <h4 class="font-moul text-lg text-stone-800 mb-2">អរគុណច្រើន!</h4>
+          <p id="successMessage" class="text-stone-600 text-sm mb-6">
+            ការបញ្ជាក់របស់អ្នកត្រូវបានកត់ត្រារួចរាល់។
+            យើងខ្ញុំរង់ចាំស្វាគមន៍វត្តមានដោយក្តីរីករាយ!
+          </p>
+          <button
+            onclick="closeRsvpModal()"
+            class="bg-stone-800 hover:bg-stone-900 text-white font-medium px-6 py-2.5 rounded-xl text-sm transition-colors shadow-md"
+          >
+            បិទផ្ទាំងនេះ
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Floating Petals Generator
+      const petalContainer = document.getElementById("petal-container");
+      const petalCount = 20;
+
+      for (let i = 0; i < petalCount; i++) {
+        const petal = document.createElement("div");
+        petal.classList.add("petal");
+
+        const size = Math.random() * 10 + 8; // 8px to 18px
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size * 1.4}px`;
+
+        petal.style.left = `${Math.random() * 100}vw`;
+
+        const duration = Math.random() * 8 + 6; // 6s to 14s
+        const delay = Math.random() * 5;
+        petal.style.animationDuration = `${duration}s`;
+        petal.style.animationDelay = `${delay}s`;
+
+        petalContainer.appendChild(petal);
+      }
+
+      // Countdown Timer Logic (Set to November 15, 2026 at 07:00 AM)
+      const eventDate = new Date("November 15, 2026 07:00:00").getTime();
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = eventDate - now;
+
+        if (distance < 0) {
+          document.getElementById("days").innerText = "00";
+          document.getElementById("hours").innerText = "00";
+          document.getElementById("minutes").innerText = "00";
+          document.getElementById("seconds").innerText = "00";
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = String(days).padStart(
+          2,
+          "0",
+        );
+        document.getElementById("hours").innerText = String(hours).padStart(
+          2,
+          "0",
+        );
+        document.getElementById("minutes").innerText = String(minutes).padStart(
+          2,
+          "0",
+        );
+        document.getElementById("seconds").innerText = String(seconds).padStart(
+          2,
+          "0",
+        );
+      }
+
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 40) {
+          navbar.classList.add("shadow-md", "bg-white/90");
+        } else {
+          navbar.classList.remove("shadow-md", "bg-white/90");
+        }
+      });
+
+      // RSVP Modal Functions
+      function openRsvpModal() {
+        const modal = document.getElementById("rsvpModal");
+        const modalContent = document.getElementById("modalContent");
+        modal.classList.remove("opacity-0", "pointer-events-none");
+        modalContent.classList.remove("scale-95");
+        modalContent.classList.add("scale-100");
+      }
+
+      function closeRsvpModal() {
+        const modal = document.getElementById("rsvpModal");
+        const modalContent = document.getElementById("modalContent");
+        modal.classList.add("opacity-0", "pointer-events-none");
+        modalContent.classList.remove("scale-100");
+        modalContent.classList.add("scale-95");
+
+        setTimeout(() => {
+          document.getElementById("rsvpForm").classList.remove("hidden");
+          document.getElementById("successState").classList.add("hidden");
+          document.getElementById("rsvpForm").reset();
+        }, 300);
+      }
+
+      function handleRsvpSubmit(event) {
+        event.preventDefault();
+        const name = document.getElementById("guestName").value;
+        const status = document.getElementById("guestStatus").value;
+        const successMsg = document.getElementById("successMessage");
+
+        if (status === "attending") {
+          successMsg.innerText = `អរគុណច្រើន ${name}! ការបញ្ជាក់ការចូលរួមរបស់អ្នកត្រូវបានទទួលជោគជ័យ។`;
+        } else {
+          successMsg.innerText = `អរគុណ ${name} ចំពោះការជូនដំណឹង។ យើងខ្ញុំសង្ឃឹមថានឹងបានជួបគ្នានៅឱកាសក្រោយៗទៀត!`;
+        }
+
+        document.getElementById("rsvpForm").classList.add("hidden");
+        document.getElementById("successState").classList.remove("hidden");
+      }
+
+      // Interactive Wishes Submission
+      function handleWishSubmit(event) {
+        event.preventDefault();
+        const name = document.getElementById("wishName").value;
+        const text = document.getElementById("wishText").value;
+
+        const wishList = document.getElementById("wishList");
+        const newWishItem = document.createElement("div");
+        newWishItem.className =
+          "glass-card p-5 rounded-2xl border border-pastel-200 animate-fade-in";
+        newWishItem.innerHTML = `
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-moul text-sm text-stone-800"><i class="fa-solid fa-user-circle text-blush-500 mr-2"></i>${escapeHtml(name)}</span>
+                    <span class="text-xs text-stone-400">ទើបតែឥឡូវនេះ</span>
+                </div>
+                <p class="text-stone-600 text-sm font-light">"${escapeHtml(text)}"</p>
+            `;
+
+        wishList.insertBefore(newWishItem, wishList.firstChild);
+        document.getElementById("wishForm").reset();
+      }
+
+      function escapeHtml(string) {
+        return string
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+    </script>
+  </body>
+</html>
