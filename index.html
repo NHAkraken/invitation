@@ -117,6 +117,19 @@
         animation: floatPetal linear infinite;
       }
 
+      /* Music button pulse ring while playing */
+      @keyframes musicPulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.45);
+        }
+        100% {
+          box-shadow: 0 0 0 14px rgba(244, 63, 94, 0);
+        }
+      }
+      .music-playing {
+        animation: musicPulse 1.6s ease-out infinite;
+      }
+
       /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -128,14 +141,60 @@
         background: #e8beaa;
         border-radius: 4px;
       }
-      ::-webkit-scrollbar-thumb-name:hover {
+      ::-webkit-scrollbar-thumb:hover {
         background: #d9977c;
       }
     </style>
   </head>
   <body
-    class="bg-pastel-50 text-stone-700 min-h-screen relative selection:bg-rose-200 selection:rose-900"
+    class="bg-pastel-50 text-stone-700 min-h-screen relative selection:bg-rose-200 selection:text-rose-900"
   >
+    <!-- Welcome cover: the tap gives the browser permission to play music -->
+    <div
+      id="welcomeCover"
+      class="fixed inset-0 z-[100] flex flex-col items-center justify-center text-center px-6 bg-pastel-50 transition-opacity duration-700"
+    >
+      <div
+        class="w-16 h-16 rounded-full bg-gradient-to-tr from-pastel-400 to-blush-300 flex items-center justify-center text-white shadow-md mb-6"
+      >
+        <i class="fa-solid fa-ring text-xl"></i>
+      </div>
+      <h1 class="font-moul text-2xl sm:text-4xl text-stone-800 mb-2">
+        សិរីសួស្តី ពិធីភ្ជាប់ពាក្យ
+      </h1>
+      <p class="text-stone-600 mb-8">គ្រឿន សុខបញ្ញា & ផៃ ស្រីពៅ</p>
+      <button
+        onclick="openInvitation()"
+        class="bg-gradient-to-r from-pastel-500 to-blush-500 text-white font-medium px-8 py-3.5 rounded-2xl shadow-lg text-sm"
+      >
+        <i class="fa-solid fa-envelope-open-text mr-2"></i> បើកធៀបអញ្ជើញ
+      </button>
+    </div>
+
+    <!-- Hidden YouTube player (background music) -->
+    <div
+      id="yt-player"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+      "
+    ></div>
+
+    <!-- Floating music button -->
+    <button
+      id="musicBtn"
+      onclick="toggleMusic()"
+      aria-label="បើក/បិទតន្ត្រី (Toggle music)"
+      class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-gradient-to-tr from-pastel-500 to-blush-500 text-white shadow-lg shadow-pastel-400/40 flex items-center justify-center transition-transform hover:scale-110"
+    >
+      <i id="musicIcon" class="fa-solid fa-music"></i>
+    </button>
+
     <!-- Floating Background Petals Generator Container -->
     <div
       id="petal-container"
@@ -385,7 +444,10 @@
           <div class="w-16 h-1 bg-pastel-400 mx-auto mt-3 rounded-full"></div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div
+          id="story"
+          class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+        >
           <div
             class="glass-card p-8 rounded-3xl border border-pastel-200 space-y-4"
           >
@@ -424,7 +486,7 @@
                 >ថ្ងៃប្រារព្ធពិធី</span
               >
               <span class="font-moul text-sm text-stone-800"
-                >ថ្ងៃអាទិត្យ ទី១៥</span
+                >ថ្ងៃអាទិត្យ ទី២២</span
               >
               <span class="text-xs text-stone-600 font-medium"
                 >ខែវិច្ឆិកា ឆ្នាំ ២០២៦</span
@@ -487,7 +549,7 @@
                 ភូមិព្រៃស្នាត ឃុំព្រៃស្នាត
               </p>
               <p class="text-stone-600 text-sm mb-6">
-                ខេត្តព្រៃវែង (Prey Snet, Prey Veng Province)
+                ខេត្តព្រៃវែង (Prey Sniet, Prey Veng Province)
               </p>
             </div>
 
@@ -498,8 +560,9 @@
                 >ស្វាគមន៍វត្តមានភ្ញៀវកិត្តិយស</span
               >
               <a
-                href="https://maps.google.com/?q=Prey+Snet+Prey+Veng"
+                href="https://maps.app.goo.gl/A6nGweXsBY7C34wg7?g_st=ic"
                 target="_blank"
+                rel="noopener"
                 class="bg-stone-800 hover:bg-stone-900 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition-all shadow-md"
               >
                 <i class="fa-solid fa-map-location-dot mr-1.5"></i> បើកផែនទី
@@ -532,7 +595,7 @@
                   >
                 </div>
                 <span
-                  class="px-3 py-1 rounded-full bg-pastel-100 text-pastel-700 text-xs font-medium"
+                  class="px-3 py-1 rounded-full bg-pastel-100 text-pastel-600 text-xs font-medium"
                   >ចាប់ផ្តើម</span
                 >
               </div>
@@ -653,7 +716,7 @@
           <div class="glass-card p-5 rounded-2xl border border-pastel-200">
             <div class="flex items-center justify-between mb-2">
               <span class="font-moul text-sm text-stone-800"
-                ><i class="fa-solid fa-user-circle text-blush-400 mr-2"></i
+                ><i class="fa-solid fa-user-circle text-blush-300 mr-2"></i
                 >កញ្ញា ចាន់ ថាច</span
               >
               <span class="text-xs text-stone-400">១៥ នាទីមុន</span>
@@ -747,7 +810,7 @@
                 class="w-full bg-pastel-50 border border-pastel-200 rounded-xl px-3 py-3 text-stone-800 focus:outline-none focus:border-pastel-500 text-sm"
               >
                 <option value="attending">អញ្ជើញចូលរួមផ្ទាល់</option>
-                <option value="declined">អាក់ខានដោយអយុត្តិធម៌/ติดธุระ</option>
+                <option value="declined">សូមអភ័យទោស មិនអាចចូលរួមបាន</option>
               </select>
             </div>
             <div>
@@ -796,6 +859,80 @@
     </div>
 
     <script>
+      // ===== Background Music (YouTube) =====
+      const MUSIC_VIDEO_ID = "uM7JepJGvqg";
+      let ytPlayer;
+      let musicReady = false;
+      let musicPlaying = false;
+      let wantMusic = false;
+
+      function openInvitation() {
+        wantMusic = true;
+        if (musicReady) ytPlayer.playVideo();
+        const cover = document.getElementById("welcomeCover");
+        cover.classList.add("opacity-0", "pointer-events-none");
+        setTimeout(() => cover.remove(), 700);
+      }
+
+      // Load the YouTube IFrame API
+      const ytTag = document.createElement("script");
+      ytTag.src = "https://www.youtube.com/iframe_api";
+      document.head.appendChild(ytTag);
+
+      // Must be global: the YouTube API calls this when it has loaded
+      window.onYouTubeIframeAPIReady = function () {
+        ytPlayer = new YT.Player("yt-player", {
+          videoId: MUSIC_VIDEO_ID,
+          playerVars: {
+            autoplay: 0,
+            controls: 0,
+            loop: 1,
+            playlist: MUSIC_VIDEO_ID, // required for looping a single video
+            playsinline: 1,
+          },
+          events: {
+            onReady: () => {
+              musicReady = true;
+              ytPlayer.setVolume(60);
+              if (wantMusic) ytPlayer.playVideo();
+            },
+            onStateChange: (e) => {
+              musicPlaying = e.data === YT.PlayerState.PLAYING;
+              updateMusicIcon();
+            },
+          },
+        });
+      };
+
+      function updateMusicIcon() {
+        const icon = document.getElementById("musicIcon");
+        const btn = document.getElementById("musicBtn");
+        icon.className = musicPlaying
+          ? "fa-solid fa-compact-disc animate-spin"
+          : "fa-solid fa-volume-xmark";
+        btn.classList.toggle("music-playing", musicPlaying);
+      }
+
+      function toggleMusic() {
+        if (!musicReady) return;
+        if (musicPlaying) {
+          ytPlayer.pauseVideo();
+        } else {
+          ytPlayer.playVideo();
+        }
+      }
+
+      // Browsers require a gesture: start music on the visitor's first tap/click/key
+      function startMusicOnFirstTouch(e) {
+        if (e.target.closest && e.target.closest("#musicBtn")) return;
+        if (!musicReady) return; // keep listening until the player is ready
+        if (!musicPlaying) ytPlayer.playVideo();
+        document.removeEventListener("pointerdown", startMusicOnFirstTouch);
+        document.removeEventListener("keydown", startMusicOnFirstTouch);
+      }
+      document.addEventListener("pointerdown", startMusicOnFirstTouch);
+      document.addEventListener("keydown", startMusicOnFirstTouch);
+
       // Floating Petals Generator
       const petalContainer = document.getElementById("petal-container");
       const petalCount = 20;
@@ -818,8 +955,8 @@
         petalContainer.appendChild(petal);
       }
 
-      // Countdown Timer Logic (Set to November 15, 2026 at 07:00 AM)
-      const eventDate = new Date("November 15, 2026 07:00:00").getTime();
+      // Countdown Timer Logic (Set to November 22, 2026 at 07:00 AM)
+      const eventDate = new Date("November 22, 2026 07:00:00").getTime();
 
       function updateCountdown() {
         const now = new Date().getTime();
@@ -919,7 +1056,7 @@
         const wishList = document.getElementById("wishList");
         const newWishItem = document.createElement("div");
         newWishItem.className =
-          "glass-card p-5 rounded-2xl border border-pastel-200 animate-fade-in";
+          "glass-card p-5 rounded-2xl border border-pastel-200";
         newWishItem.innerHTML = `
                 <div class="flex items-center justify-between mb-2">
                     <span class="font-moul text-sm text-stone-800"><i class="fa-solid fa-user-circle text-blush-500 mr-2"></i>${escapeHtml(name)}</span>
