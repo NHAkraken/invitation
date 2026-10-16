@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="km" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ពិធីភ្ជាប់ពាក្យ - Kroeun SokPanha & Phai SreyPov</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Koulen&family=Moulpheap&family=Suwannaphum:wght@300;400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<script>
+tailwind.config = { theme: { extend: {
+  fontFamily: { sans: ["Fasthan","Inter","AKbalthom KhmerLight"], moul: ["Kantumruy Pro","serif"], koulen: ["Koulen","cursive"] },
+  colors: {
+    pastel: {50:"#fdf8f6",100:"#f9eee9",200:"#f3dccf",300:"#e8beaa",400:"#d9977c",500:"#c57454",600:"#a85a3c"},
+    blush: {50:"#fff5f7",100:"#ffe3e8",200:"#fecdd6",300:"#fba5b5",500:"#f43f5e",600:"#e11d48"},
+    cream: {50:"#fefcf8",100:"#fdf9f0",200:"#f9f1e1",300:"#f3e4c4"},
+  } } } };
+</script>
+<style>
+body{font-family:"Suwannaphum","Inter",sans-serif;background:#fdf8f6;color:#4a3b32;overflow-x:hidden}
+.font-moul{font-family:"Kantumruy Pro",serif}
+.font-koulen{font-family:"Koulen",cursive}
+.glass-card{background:rgba(255,255,255,.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(243,220,196,.6);box-shadow:0 10px 30px rgba(197,116,84,.08)}
+.glass-header{background:rgba(253,248,246,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(243,220,196,.4)}
+@keyframes floatPetal{0%{transform:translateY(-10vh) translateX(0) rotate(0);opacity:0}10%,90%{opacity:.8}100%{transform:translateY(105vh) translateX(15vw) rotate(360deg);opacity:0}}
+.petal{position:fixed;top:-5vh;background:radial-gradient(circle,#fba5b5 0%,#f43f5e 100%);border-radius:150% 0 150% 0;pointer-events:none;z-index:1;opacity:.6;animation:floatPetal linear infinite}
+@keyframes musicPulse{0%{box-shadow:0 0 0 0 rgba(244,63,94,.45)}100%{box-shadow:0 0 0 14px rgba(244,63,94,0)}}
+.music-playing{animation:musicPulse 1.6s ease-out infinite}
+@keyframes pageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.page-in{animation:pageIn .6s ease both}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#fdf8f6}
+::-webkit-scrollbar-thumb{background:#e8beaa;border-radius:4px}
+</style>
+</head>
+<body class="bg-pastel-50 text-stone-700 min-h-screen relative selection:bg-rose-200 selection:text-rose-900">
+<!-- Hidden YouTube player -->
+<div id="yt-player" style="position:fixed;bottom:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none"></div>
+
+<!-- Music button -->
+<button id="musicBtn" onclick="toggleMusic()" aria-label="Toggle music" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-gradient-to-tr from-pastel-500 to-blush-500 text-white shadow-lg shadow-pastel-400/40 flex items-center justify-center transition-transform hover:scale-110"><i id="musicIcon" class="fa-solid fa-music"></i></button>
+
+<div id="petal-container" class="absolute inset-0 overflow-hidden pointer-events-none z-0"></div>
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+  <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-pastel-200/40 blur-[100px]"></div>
+  <div class="absolute top-[35%] right-[-10%] w-[600px] h-[600px] rounded-full bg-blush-100/50 blur-[120px]"></div>
+  <div class="absolute bottom-[-5%] left-[20%] w-[500px] h-[500px] rounded-full bg-cream-300/40 blur-[100px]"></div>
+</div>
+
+<!-- Navigation (shared by both pages) -->
+<header class="fixed top-0 left-0 w-full z-50 glass-header transition-all duration-300" id="navbar">
+  <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+    <a href="index.html" class="flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pastel-400 to-blush-300 flex items-center justify-center shadow-md shadow-pastel-300/40 text-white"><i class="fa-solid fa-ring text-sm"></i></div>
+      <span class="font-moul text-sm sm:text-base text-stone-800 tracking-wide">សិរីសួស្តី ពិធីភ្ជាប់ពាក្យ</span>
+    </a>
+    <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-stone-600">
+      <a href="index.html" class="hover:text-blush-600 transition-colors">ទំព័រដើម</a>
+      <a href="details.html#story" class="hover:text-blush-600 transition-colors">ដំណើររឿង</a>
+      <a href="details.html#details" class="hover:text-blush-600 transition-colors">កម្មវិធី និងទីតាំង</a>
+      <a href="details.html#wishes" class="hover:text-blush-600 transition-colors">ពាក្យជូនពរ</a>
+    </nav>
+    <button onclick="openRsvpModal()" class="bg-gradient-to-r from-pastel-500 to-blush-500 hover:from-pastel-600 hover:to-blush-600 text-white font-medium px-5 py-2.5 rounded-full shadow-md shadow-pastel-400/30 transition-all hover:-translate-y-0.5 text-xs sm:text-sm"><i class="fa-solid fa-heart mr-1.5"></i> អញ្ជើញចូលរួម</button>
+  </div>
+</header>
+
+<main class="page-in">
+  <div class="pt-28 px-6 relative z-10 max-w-5xl mx-auto">
+    <a href="index.html" class="glass-card text-stone-700 text-xs font-medium px-4 py-2 rounded-full border border-pastel-300"><i class="fa-solid fa-arrow-left mr-1.5"></i> ត្រឡប់ទៅទំព័រដើម</a>
+  </div>
+
+  <!-- Story -->
+  <section id="couple" class="py-16 px-6 relative z-10">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <span class="text-pastel-600 text-xs font-semibold uppercase tracking-widest block mb-2">Our Love Journey</span>
+        <h2 class="font-moul text-2xl sm:text-3xl text-stone-800">ដំណើររឿង និងចំណងដៃមនោសញ្ចេតនា</h2>
+        <div class="w-16 h-1 bg-pastel-400 mx-auto mt-3 rounded-full"></div>
+      </div>
+      <div id="story" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center scroll-mt-28">
+        <div class="glass-card p-8 rounded-3xl border border-pastel-200 space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-pastel-100 flex items-center justify-center text-pastel-600 text-xl shadow-sm"><i class="fa-solid fa-quote-left"></i></div>
+          <h3 class="font-moul text-lg text-stone-800">ក្តីស្រឡាញ់ដ៏ស្មោះស្ម័គ្រ</h3>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed font-light">"ក្ដីសុខពិតប្រាកដក្នុងជីវិត គឺការបានជួបមនុស្សម្នាក់ដែលយល់ចិត្ត ស្រឡាញ់ និងព្រមដើរជាមួយគ្នាក្នុងគ្រប់កាលៈទេសៈ។ ថ្ងៃនេះគឺជាការចាប់ផ្តើមដ៏មានន័យបំផុតរបស់យើងទាំងពីរ ក្រោមពរជ័យពីសំណាក់គ្រួសារទាំងសងខាង។"</p>
+          <p class="font-moul text-sm text-pastel-600 pt-2">— គ្រឿន សុខបញ្ញា & ផៃ ស្រីពៅ</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="glass-card p-6 rounded-3xl text-center border-pastel-200 flex flex-col justify-center items-center">
+            <div class="w-12 h-12 rounded-full bg-blush-100 text-blush-500 flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-calendar-check"></i></div>
+            <span class="text-xs uppercase tracking-widest text-stone-500 mb-1">ថ្ងៃប្រារព្ធពិធី</span>
+            <span class="font-moul text-sm text-stone-800">ថ្ងៃអាទិត្យ ទី២២</span>
+            <span class="text-xs text-stone-600 font-medium">ខែវិច្ឆិកា ឆ្នាំ ២០២៦</span>
+          </div>
+          <div class="glass-card p-6 rounded-3xl text-center border-pastel-200 flex flex-col justify-center items-center">
+            <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-clock"></i></div>
+            <span class="text-xs uppercase tracking-widest text-stone-500 mb-1">ពេលវេលា</span>
+            <span class="font-moul text-sm text-stone-800">ម៉ោង ០៧:០០ ព្រឹក</span>
+            <span class="text-xs text-stone-600 font-medium">ចាប់ផ្តើមកម្មវិធី</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Venue & schedule -->
+  <section id="details" class="py-16 px-6 relative z-10 bg-white/40 backdrop-blur-sm scroll-mt-20">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <span class="text-pastel-600 text-xs font-semibold uppercase tracking-widest block mb-2">Event Schedule & Venue</span>
+        <h2 class="font-moul text-2xl sm:text-3xl text-stone-800">ទីតាំង និងកម្មវិធីពិធី</h2>
+        <div class="w-16 h-1 bg-pastel-400 mx-auto mt-3 rounded-full"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="glass-card p-8 rounded-3xl border border-pastel-300 flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-pastel-100 text-pastel-600 flex items-center justify-center text-xl mb-6 shadow-sm"><i class="fa-solid fa-location-dot"></i></div>
+            <h3 class="font-moul text-xl text-stone-800 mb-2">ទីតាំងប្រារព្ធពិធី</h3>
+            <p class="text-stone-700 font-medium text-base mb-1">ភូមិព្រៃស្នាត ឃុំព្រៃស្នាត</p>
+            <p class="text-stone-600 text-sm mb-6">ខេត្តព្រៃវែង (Prey Sniet, Prey Veng Province)</p>
+          </div>
+          <div class="pt-4 border-t border-pastel-200 flex items-center justify-between">
+            <span class="text-xs text-stone-500">ស្វាគមន៍វត្តមានភ្ញៀវកិត្តិយស</span>
+            <a href="https://maps.app.goo.gl/A6nGweXsBY7C34wg7?g_st=ic" target="_blank" rel="noopener" class="bg-stone-800 hover:bg-stone-900 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition-all shadow-md"><i class="fa-solid fa-map-location-dot mr-1.5"></i> បើកផែនទី (Map)</a>
+          </div>
+        </div>
+        <div class="glass-card p-8 rounded-3xl border border-pastel-300">
+          <div class="w-14 h-14 rounded-2xl bg-blush-100 text-blush-500 flex items-center justify-center text-xl mb-6 shadow-sm"><i class="fa-solid fa-list-check"></i></div>
+          <h3 class="font-moul text-xl text-stone-800 mb-4">កម្មវិធីបុណ្យប្រពៃណី</h3>
+          <div class="space-y-4 text-sm">
+            <div class="flex items-start justify-between pb-3 border-b border-pastel-200">
+              <div><span class="font-moul text-stone-800 block text-xs">ម៉ោង ០៧:០០ ព្រឹក</span><span class="text-stone-600">ពិធីជួបជុំសាច់ញាតិ និងរៀបចំគ្រឿងពិធី</span></div>
+              <span class="px-3 py-1 rounded-full bg-pastel-100 text-pastel-600 text-xs font-medium">ចាប់ផ្តើម</span>
+            </div>
+            <div class="flex items-start justify-between pb-3 border-b border-pastel-200">
+              <div><span class="font-moul text-stone-800 block text-xs">ម៉ោង ០៨:០០ ព្រឹក</span><span class="text-stone-600">ពិធីហែរចិញ្ចៀន និងបំពាក់ចិញ្ចៀនភ្ជាប់ពាក្យ</span></div>
+              <span class="px-3 py-1 rounded-full bg-blush-100 text-blush-600 text-xs font-medium">ពិធីផ្លូវការ</span>
+            </div>
+            <div class="flex items-start justify-between">
+              <div><span class="font-moul text-stone-800 block text-xs">ម៉ោង ១១:០០ ថ្ងៃត្រង់</span><span class="text-stone-600">ហូបអាហារសាមគ្គីអបអរសាទរ</span></div>
+              <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-medium">ជប់លៀង</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wishes -->
+  <section id="wishes" class="py-16 px-6 relative z-10 scroll-mt-20">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="text-pastel-600 text-xs font-semibold uppercase tracking-widest block mb-2">Blessings & Wishes</span>
+        <h2 class="font-moul text-2xl sm:text-3xl text-stone-800">សៀវភៅពាក្យជូនពរ</h2>
+        <p class="text-stone-600 text-sm mt-2">ផ្ញើសារជូនពរដ៏ថ្លៃថ្លាដល់កូនកំលោះ និងកូនក្រមុំ</p>
+        <div class="w-16 h-1 bg-pastel-400 mx-auto mt-3 rounded-full"></div>
+      </div>
+      <div class="glass-card p-6 sm:p-8 rounded-3xl border border-pastel-300 mb-8 shadow-md">
+        <form id="wishForm" onsubmit="handleWishSubmit(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-medium text-stone-700 mb-1">ឈ្មោះអ្នកផ្ញើ / ស្ថាប័ន (Your Name)</label>
+            <input type="text" id="wishName" required class="w-full bg-white/80 border border-pastel-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:border-pastel-500 text-sm" placeholder="បញ្ចូលឈ្មោះរបស់អ្នក..." />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-stone-700 mb-1">ពាក្យជូនពរ (Your Blessing)</label>
+            <textarea id="wishText" required rows="3" class="w-full bg-white/80 border border-pastel-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:border-pastel-500 text-sm" placeholder="សូមជូនពរឱ្យបងទាំងពីរមានសុភមង្គល និងស្រឡាញ់គ្នាជារៀងរហូត..."></textarea>
+          </div>
+          <button type="submit" class="w-full bg-gradient-to-r from-pastel-500 to-blush-500 hover:from-pastel-600 hover:to-blush-600 text-white font-medium py-3 rounded-xl shadow-md transition-all text-sm"><i class="fa-solid fa-paper-plane mr-2"></i> ផ្ញើសារជូនពរ</button>
+        </form>
+      </div>
+      <div id="wishList" class="space-y-4">
+        <div class="glass-card p-5 rounded-2xl border border-pastel-200">
+          <div class="flex items-center justify-between mb-2"><span class="font-moul text-sm text-stone-800"><i class="fa-solid fa-user-circle text-pastel-500 mr-2"></i>លោក និងលោកស្រី សុខ ភា</span><span class="text-xs text-stone-400">ទើបតែឥឡូវនេះ</span></div>
+          <p class="text-stone-600 text-sm font-light">"សូមអបអរសាទរចំពោះពិធីភ្ជាប់ពាក្យរបស់ក្មួយទាំងពីរ! សូមជូនពរឱ្យមានសុភមង្គល ជោគជ័យក្នុងជីវិតគ្រួសារ និងស្រឡាញ់គ្នារហូតដល់ចាស់កោងខ្នង។"</p>
+        </div>
+        <div class="glass-card p-5 rounded-2xl border border-pastel-200">
+          <div class="flex items-center justify-between mb-2"><span class="font-moul text-sm text-stone-800"><i class="fa-solid fa-user-circle text-blush-300 mr-2"></i>កញ្ញា ចាន់ ថាច</span><span class="text-xs text-stone-400">១៥ នាទីមុន</span></div>
+          <p class="text-stone-600 text-sm font-light">"អបអរសាទរបងបញ្ញា និងបងស្រីពៅ! សុខសប្បាយ និងជោគជ័យគ្រប់ភារកិច្ចទាំងអស់គ្នា។"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-12 px-6 border-t border-pastel-200 relative z-10 text-center bg-pastel-100/50">
+    <div class="max-w-4xl mx-auto space-y-4">
+      <div class="w-12 h-12 mx-auto rounded-full bg-gradient-to-tr from-pastel-400 to-blush-300 flex items-center justify-center text-white shadow-md"><i class="fa-solid fa-heart text-sm"></i></div>
+      <h3 class="font-moul text-lg text-stone-800">គ្រឿន សុខបញ្ញា & ផៃ ស្រីពៅ</h3>
+      <p class="text-stone-500 text-xs sm:text-sm">សូមអរគុណចំពោះវត្តមាន និងការចូលរួមជាកិត្តិយសដ៏ថ្លៃថ្លា!</p>
+      <p class="text-stone-400 text-xs pt-4">© 2026 Kroeun Sokpanha & Phai Srey Pov Engagement. All rights reserved.</p>
+    </div>
+  </footer>
+</main>
+<!-- RSVP Modal -->
+<div id="rsvpModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 bg-stone-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+  <div class="glass-card w-full max-w-md rounded-3xl p-8 relative border border-pastel-300 shadow-2xl transform scale-95 transition-transform duration-300 bg-white/95" id="modalContent">
+    <button onclick="closeRsvpModal()" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-pastel-100 hover:bg-pastel-200 text-stone-600 flex items-center justify-center transition-colors"><i class="fa-solid fa-xmark"></i></button>
+    <div class="mb-6 text-center">
+      <span class="text-pastel-600 text-xs font-semibold uppercase tracking-wider block">Confirmation</span>
+      <h3 class="font-moul text-xl text-stone-800 mt-1">បញ្ជាក់ការចូលរួម (RSVP)</h3>
+      <p class="text-stone-500 text-xs mt-1">សូមបំពេញព័ត៌មានខាងក្រោមដើម្បីឱ្យយើងខ្ញុំរៀបចំកន្លែងជូន</p>
+    </div>
+    <form id="rsvpForm" onsubmit="handleRsvpSubmit(event)" class="space-y-4">
+      <div>
+        <label class="block text-xs font-medium text-stone-700 mb-1">ឈ្មោះពេញ (Full Name)</label>
+        <input type="text" id="guestName" required class="w-full bg-pastel-50 border border-pastel-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:border-pastel-500 text-sm" placeholder="ឧ. លោក និងលោកស្រី ..." />
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-medium text-stone-700 mb-1">ស្ថានភាពចូលរួម</label>
+          <select id="guestStatus" class="w-full bg-pastel-50 border border-pastel-200 rounded-xl px-3 py-3 text-stone-800 focus:outline-none focus:border-pastel-500 text-sm">
+            <option value="attending">អញ្ជើញចូលរួមផ្ទាល់</option>
+            <option value="declined">សូមអភ័យទោស មិនអាចចូលរួមបាន</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-stone-700 mb-1">ចំនួនភ្ញៀវ</label>
+          <select id="guestCount" class="w-full bg-pastel-50 border border-pastel-200 rounded-xl px-3 py-3 text-stone-800 focus:outline-none focus:border-pastel-500 text-sm">
+            <option value="1">០១ នាក់</option>
+            <option value="2">០២ នាក់</option>
+            <option value="3">០៣ នាក់ ឬច្រើនជាងនេះ</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="w-full mt-2 bg-gradient-to-r from-pastel-500 to-blush-500 hover:from-pastel-600 hover:to-blush-600 text-white font-medium py-3.5 rounded-xl shadow-md transition-all text-sm">បញ្ជូនការឆ្លើយតប</button>
+    </form>
+    <div id="successState" class="hidden text-center py-6">
+      <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-4 shadow-inner"><i class="fa-solid fa-check"></i></div>
+      <h4 class="font-moul text-lg text-stone-800 mb-2">អរគុណច្រើន!</h4>
+      <p id="successMessage" class="text-stone-600 text-sm mb-6">ការបញ្ជាក់របស់អ្នកត្រូវបានកត់ត្រារួចរាល់។ យើងខ្ញុំរង់ចាំស្វាគមន៍វត្តមានដោយក្តីរីករាយ!</p>
+      <button onclick="closeRsvpModal()" class="bg-stone-800 hover:bg-stone-900 text-white font-medium px-6 py-2.5 rounded-xl text-sm transition-colors shadow-md">បិទផ្ទាំងនេះ</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== Background music (YouTube) — position is remembered between the two pages =====
+const MUSIC_VIDEO_ID = "uM7JepJGvqg";
+let ytPlayer, musicReady = false, musicPlaying = false;
+let saved = {};
+try { saved = JSON.parse(sessionStorage.getItem("music") || "{}"); } catch (e) {}
+let wantMusic = !!saved.playing;
+
+function saveMusic() {
+  try {
+    const t = ytPlayer && ytPlayer.getCurrentTime ? ytPlayer.getCurrentTime() : saved.time || 0;
+    sessionStorage.setItem("music", JSON.stringify({ playing: musicPlaying || wantMusic, time: t }));
+  } catch (e) {}
+}
+window.addEventListener("pagehide", saveMusic);
+document.addEventListener("click", (e) => { if (e.target.closest && e.target.closest("a[href]")) saveMusic(); });
+
+const ytTag = document.createElement("script");
+ytTag.src = "https://www.youtube.com/iframe_api";
+document.head.appendChild(ytTag);
+
+window.onYouTubeIframeAPIReady = function () {
+  ytPlayer = new YT.Player("yt-player", {
+    videoId: MUSIC_VIDEO_ID,
+    playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: MUSIC_VIDEO_ID, playsinline: 1, start: Math.floor(saved.time || 0) },
+    events: {
+      onReady: () => { musicReady = true; ytPlayer.setVolume(60); if (wantMusic) ytPlayer.playVideo(); },
+      onStateChange: (e) => { musicPlaying = e.data === YT.PlayerState.PLAYING; updateMusicIcon(); },
+    },
+  });
+};
+function updateMusicIcon() {
+  document.getElementById("musicIcon").className = musicPlaying ? "fa-solid fa-compact-disc animate-spin" : "fa-solid fa-volume-xmark";
+  document.getElementById("musicBtn").classList.toggle("music-playing", musicPlaying);
+}
+function toggleMusic() {
+  if (!musicReady) return;
+  if (musicPlaying) { wantMusic = false; ytPlayer.pauseVideo(); } else { wantMusic = true; ytPlayer.playVideo(); }
+  saveMusic();
+}
+// Some browsers block autoplay on a new page: resume on the visitor's first tap
+if (wantMusic) {
+  const resume = (e) => {
+    if (e.target.closest && e.target.closest("#musicBtn")) return;
+    if (!musicReady) return;
+    if (!musicPlaying) ytPlayer.playVideo();
+    document.removeEventListener("pointerdown", resume);
+    document.removeEventListener("keydown", resume);
+  };
+  document.addEventListener("pointerdown", resume);
+  document.addEventListener("keydown", resume);
+}
+
+// ===== Petals =====
+const petalContainer = document.getElementById("petal-container");
+for (let i = 0; i < 20; i++) {
+  const petal = document.createElement("div");
+  petal.classList.add("petal");
+  const size = Math.random() * 10 + 8;
+  petal.style.width = `${size}px`;
+  petal.style.height = `${size * 1.4}px`;
+  petal.style.left = `${Math.random() * 100}vw`;
+  petal.style.animationDuration = `${Math.random() * 8 + 6}s`;
+  petal.style.animationDelay = `${Math.random() * 5}s`;
+  petalContainer.appendChild(petal);
+}
+
+// ===== Navbar shadow =====
+window.addEventListener("scroll", () => {
+  document.getElementById("navbar").classList.toggle("shadow-md", window.scrollY > 40);
+});
+
+// ===== RSVP modal =====
+function openRsvpModal() {
+  document.getElementById("rsvpModal").classList.remove("opacity-0", "pointer-events-none");
+  const c = document.getElementById("modalContent");
+  c.classList.remove("scale-95"); c.classList.add("scale-100");
+}
+function closeRsvpModal() {
+  document.getElementById("rsvpModal").classList.add("opacity-0", "pointer-events-none");
+  const c = document.getElementById("modalContent");
+  c.classList.remove("scale-100"); c.classList.add("scale-95");
+  setTimeout(() => {
+    document.getElementById("rsvpForm").classList.remove("hidden");
+    document.getElementById("successState").classList.add("hidden");
+    document.getElementById("rsvpForm").reset();
+  }, 300);
+}
+function handleRsvpSubmit(event) {
+  event.preventDefault();
+  const name = document.getElementById("guestName").value;
+  const status = document.getElementById("guestStatus").value;
+  document.getElementById("successMessage").innerText =
+    status === "attending"
+      ? `អរគុណច្រើន ${name}! ការបញ្ជាក់ការចូលរួមរបស់អ្នកត្រូវបានទទួលជោគជ័យ។`
+      : `អរគុណ ${name} ចំពោះការជូនដំណឹង។ យើងខ្ញុំសង្ឃឹមថានឹងបានជួបគ្នានៅឱកាសក្រោយៗទៀត!`;
+  document.getElementById("rsvpForm").classList.add("hidden");
+  document.getElementById("successState").classList.remove("hidden");
+}
+function escapeHtml(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+
+// ===== Wishes =====
+function handleWishSubmit(event) {
+  event.preventDefault();
+  const name = document.getElementById("wishName").value;
+  const text = document.getElementById("wishText").value;
+  const item = document.createElement("div");
+  item.className = "glass-card p-5 rounded-2xl border border-pastel-200";
+  item.innerHTML = `<div class="flex items-center justify-between mb-2"><span class="font-moul text-sm text-stone-800"><i class="fa-solid fa-user-circle text-blush-500 mr-2"></i>${escapeHtml(name)}</span><span class="text-xs text-stone-400">ទើបតែឥឡូវនេះ</span></div><p class="text-stone-600 text-sm font-light">"${escapeHtml(text)}"</p>`;
+  const list = document.getElementById("wishList");
+  list.insertBefore(item, list.firstChild);
+  document.getElementById("wishForm").reset();
+}
+</script>
+</body>
+</html>
